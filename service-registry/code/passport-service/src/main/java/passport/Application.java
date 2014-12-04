@@ -122,7 +122,7 @@ class Client implements CommandLineRunner {
         exchange.getBody().forEach(System.out::println);
 
         // use the smart Eureka-aware Feign support
-        bookmarkClient.getBookmarks("jlong").forEach(System.out::println);
+        // bookmarkClient.getBookmarks("jlong").forEach(System.out::println);
     }
 
 
