@@ -1,7 +1,6 @@
 package passport;
 
 import com.netflix.appinfo.InstanceInfo;
-import com.netflix.loadbalancer.DynamicServerListLoadBalancer;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,21 +8,80 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.feign.FeignConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Map;
+import java.util.List;
 
 @ComponentScan
 @Configuration
 @EnableAutoConfiguration
 @EnableEurekaClient
 @RestController
-public class Application {
+public class Application extends FeignConfigurer {
+
+    @Bean
+    public BookmarkClient bookmarkClient() {
+        //loadBalance plugs Feign into ribbon.
+        //  feign() works without load balancing.
+        return loadBalance(BookmarkClient.class, "http://bookmark-service");
+    }
+
+    public static class Bookmark {
+        private Long id;
+        private String href, label, description, userId;
+
+        @Override
+        public String toString() {
+            return "Bookmark{" +
+                    "id=" + id +
+                    ", href='" + href + '\'' +
+                    ", label='" + label + '\'' +
+                    ", description='" + description + '\'' +
+                    ", userId='" + userId + '\'' +
+                    '}';
+        }
+
+        public Bookmark() {
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public String getHref() {
+            return href;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+    }
+
+    public static interface BookmarkClient {
+
+        @RequestMapping(method = RequestMethod.GET, value = "/{userId}/bookmarks")
+        List<Bookmark> getBookmarks(@PathVariable ("userId") String userId);
+    }
+
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -36,6 +94,8 @@ public class Application {
     private RestTemplate restTemplate;
 
     private void dump() {
+
+        // get the info directly from the Eureka DiscoveryClient
         InstanceInfo photoServiceInstanceInfo = discoveryClient.getNextServerFromEureka("photo-service", false);
         System.out.println("photoService: " + ToStringBuilder.reflectionToString(photoServiceInstanceInfo, ToStringStyle.MULTI_LINE_STYLE));
 
@@ -50,14 +110,22 @@ public class Application {
         InstanceInfo.InstanceStatus photoStatus = photoServiceInstanceInfo.getStatus();
         System.out.println("photo status: " + photoStatus);
 
-        Map mapOfPhotoData = this.restTemplate.getForObject(
-                "http://bookmark-service/{userId}/bookmarks", Map.class, "mstine");
+        // use the "smart" Eureka-aware RestTemplate
+        ResponseEntity<List<Bookmark>> exchange = this.restTemplate.exchange(
+                "http://bookmark-service/{userId}/bookmarks", HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<Bookmark>>() {
+                }, (Object) "mstine");
+        exchange.getBody().forEach(System.out::println);
 
-        for (Object k : mapOfPhotoData.keySet())
-            System.out.println(k + "=" + mapOfPhotoData.get(k));
+        // use the smart Eureka-aware Feign support
+        BookmarkClient bookmarkClient = this.bookmarkClient();
+        bookmarkClient.getBookmarks("jlong").forEach( bookmark -> System.out.println( bookmark));
+
+        System.out.println("calling service");
+
     }
 
-//    @Bean
+    @Bean
     CommandLineRunner dumpOnStartup() {
         return args -> this.dump();
     }
