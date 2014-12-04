@@ -15,10 +15,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -27,65 +27,66 @@ import java.util.List;
 @Configuration
 @EnableAutoConfiguration
 @EnableEurekaClient
-@RestController
 public class Application extends FeignConfigurer {
-
-    @Bean
-    public BookmarkClient bookmarkClient() {
-        //loadBalance plugs Feign into ribbon.
-        //  feign() works without load balancing.
-        return loadBalance(BookmarkClient.class, "http://bookmark-service");
-    }
-
-    public static class Bookmark {
-        private Long id;
-        private String href, label, description, userId;
-
-        @Override
-        public String toString() {
-            return "Bookmark{" +
-                    "id=" + id +
-                    ", href='" + href + '\'' +
-                    ", label='" + label + '\'' +
-                    ", description='" + description + '\'' +
-                    ", userId='" + userId + '\'' +
-                    '}';
-        }
-
-        public Bookmark() {
-        }
-
-        public Long getId() {
-            return id;
-        }
-
-        public String getHref() {
-            return href;
-        }
-
-        public String getLabel() {
-            return label;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-    }
-
-    public static interface BookmarkClient {
-
-        @RequestMapping(method = RequestMethod.GET, value = "/{userId}/bookmarks")
-        List<Bookmark> getBookmarks(@PathVariable ("userId") String userId);
-    }
-
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
+
+    @Bean
+    public BookmarkClient bookmarkClient() {
+        return loadBalance(BookmarkClient.class, "http://bookmark-service");
+    }
+}
+
+interface BookmarkClient {
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{userId}/bookmarks")
+    List<Bookmark> getBookmarks(@PathVariable("userId") String userId);
+}
+
+class Bookmark {
+    private Long id;
+    private String href, label, description, userId;
+
+    @Override
+    public String toString() {
+        return "Bookmark{" +
+                "id=" + id +
+                ", href='" + href + '\'' +
+                ", label='" + label + '\'' +
+                ", description='" + description + '\'' +
+                ", userId='" + userId + '\'' +
+                '}';
+    }
+
+    public Bookmark() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+}
+
+
+@Component
+class Client implements CommandLineRunner {
 
     @Autowired
     private com.netflix.discovery.DiscoveryClient discoveryClient;
@@ -93,7 +94,11 @@ public class Application extends FeignConfigurer {
     @Autowired
     private RestTemplate restTemplate;
 
-    private void dump() {
+    @Autowired
+    private BookmarkClient bookmarkClient ;
+
+    @Override
+    public void run(String... args) throws Exception {
 
         // get the info directly from the Eureka DiscoveryClient
         InstanceInfo photoServiceInstanceInfo = discoveryClient.getNextServerFromEureka("photo-service", false);
@@ -113,25 +118,12 @@ public class Application extends FeignConfigurer {
         // use the "smart" Eureka-aware RestTemplate
         ResponseEntity<List<Bookmark>> exchange = this.restTemplate.exchange(
                 "http://bookmark-service/{userId}/bookmarks", HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<Bookmark>>() {
-                }, (Object) "mstine");
+                new ParameterizedTypeReference<List<Bookmark>>() {}, (Object) "mstine");
         exchange.getBody().forEach(System.out::println);
 
         // use the smart Eureka-aware Feign support
-        BookmarkClient bookmarkClient = this.bookmarkClient();
-        bookmarkClient.getBookmarks("jlong").forEach( bookmark -> System.out.println( bookmark));
-
-        System.out.println("calling service");
-
+        bookmarkClient.getBookmarks("jlong").forEach(System.out::println);
     }
 
-    @Bean
-    CommandLineRunner dumpOnStartup() {
-        return args -> this.dump();
-    }
 
-    @RequestMapping("/discover")
-    void discover() {
-        this.dump();
-    }
 }
