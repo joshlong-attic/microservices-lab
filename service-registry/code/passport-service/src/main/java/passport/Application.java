@@ -116,13 +116,13 @@ class Client implements CommandLineRunner {
         System.out.println("photo status: " + photoStatus);
 
         // use the "smart" Eureka-aware RestTemplate
-        ResponseEntity<List<Bookmark>> exchange = this.restTemplate.exchange(
+      /*  ResponseEntity<List<Bookmark>> exchange = this.restTemplate.exchange(
                 "http://bookmark-service/{userId}/bookmarks", HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<Bookmark>>() {}, (Object) "mstine");
         exchange.getBody().forEach(System.out::println);
-
+*/
         // use the smart Eureka-aware Feign support
-        // bookmarkClient.getBookmarks("jlong").forEach(System.out::println);
+         bookmarkClient.getBookmarks("jlong").forEach(System.out::println);
     }
 
 
