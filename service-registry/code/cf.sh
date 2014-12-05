@@ -62,11 +62,10 @@ function deploy_passport_service(){
 
 function reset(){
   cf d eureka-service
-  cf ds eureka-service
-
   cf d photo-service
   cf d bookmark-service
 
+  cf ds eureka-service
   cf delete-orphaned-routes
 }
 
@@ -79,8 +78,8 @@ function reset(){
 mvn -DskipTests=true clean install
 
 login
-#reset
-#deploy_eureka
-#deploy_photo_service
-#deploy_bookmark_service
+reset
+deploy_eureka
+deploy_photo_service
+deploy_bookmark_service
 deploy_passport_service
