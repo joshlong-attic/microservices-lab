@@ -96,6 +96,8 @@ class Client {
     @Autowired
     private BookmarkClient bookmarkClient;
 
+    // TODO NB: don't call this until about 30s after it's started up!!!
+    // the load balancers need to refresh their list of servers otherwise they'll fail.
     @RequestMapping("/connect")
     public void connect() throws Exception {
 
