@@ -1,0 +1,8 @@
+curl -i -X POST "localhost:8080/mstine/likes/1"
+curl -i -X POST "localhost:8080/mstine/likes/2"
+curl -i -X POST "localhost:8080/starbuxman/likes/2"
+curl -i -X POST "localhost:8080/starbuxman/likes/4"
+curl -i -X POST "localhost:8080/starbuxman/likes/5"
+curl -i -X POST "localhost:8080/littleidea/likes/2"
+curl -i -X POST "localhost:8080/littleidea/likes/3"
+curl -i -X POST "localhost:8080/littleidea/likes/5"
