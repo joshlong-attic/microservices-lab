@@ -11,7 +11,7 @@
     </parent>
 
 
-     <artifactId>eureka</artifactId>
+     <artifactId>eureka-service</artifactId>
      <packaging>jar</packaging>
 
     <dependencies>
@@ -21,5 +21,11 @@
             <artifactId>spring-cloud-starter-eureka-server</artifactId>
         </dependency>
     </dependencies>
+
+
+    <properties>
+      <start-class>registry.Application</start-class>
+    </properties>
+
 
 </project>

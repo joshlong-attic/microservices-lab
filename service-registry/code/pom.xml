@@ -15,10 +15,13 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
+        <module>eureka-service</module>
         <module>photo-service</module>
-        <module>passport-service</module>
-        <module>eureka</module>
+
         <module>bookmark-service</module>
+
+        <module>passport-service</module>
+
     </modules>
 
 
@@ -29,6 +32,7 @@
 
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

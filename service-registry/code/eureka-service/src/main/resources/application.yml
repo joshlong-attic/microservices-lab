@@ -1,5 +1,7 @@
+
+
 server:
-  port: 8761
+  port: ${vcap.application.port:8761}
 
 
 
@@ -9,4 +11,3 @@ eureka:
     fetchRegistry: false
   server:
     waitTimeInMsWhenSyncEmpty: 0
-
