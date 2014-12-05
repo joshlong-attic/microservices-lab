@@ -6,6 +6,7 @@ import io.pivotal.microservices.neo4j.model.Person;
 import io.pivotal.microservices.neo4j.repositories.LikesRepository;
 import io.pivotal.microservices.neo4j.repositories.MovieRepository;
 import io.pivotal.microservices.neo4j.repositories.PersonRepository;
+import org.neo4j.graphdb.GraphDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @Configuration
@@ -27,6 +29,8 @@ public class Application implements CommandLineRunner {
         SpringApplication.run(Application.class, args);
     }
 
+    @Autowired
+    GraphDatabaseService graphDatabaseService;
     @Autowired
     MovieRepository movieRepository;
     @Autowired
@@ -82,8 +86,11 @@ public class Application implements CommandLineRunner {
         return new ResponseEntity<>(likes, HttpStatus.CREATED);
     }
 
+    @Autowired
+    TransactionTemplate tpl;
+
     @RequestMapping(value = "/{userName}/recommendations", method = RequestMethod.GET)
     public Iterable<Movie> recommendedMoviesFor(@PathVariable String userName) {
-        return movieRepository.recommendedMoviesFor(userName);
+        return tpl.execute(x -> movieRepository.recommendedMoviesFor(userName));
     }
 }
