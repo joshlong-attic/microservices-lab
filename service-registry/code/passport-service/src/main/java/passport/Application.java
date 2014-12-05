@@ -110,7 +110,7 @@ class Client implements CommandLineRunner {
                 bookmarkServiceInstanceInfo, ToStringStyle.MULTI_LINE_STYLE));
 
         InstanceInfo.InstanceStatus bookmarkStatus = bookmarkServiceInstanceInfo.getStatus();
-        System.out.println("instance status: " + bookmarkStatus);
+        System.out.println("bookmark status: " + bookmarkStatus);
 
         InstanceInfo.InstanceStatus photoStatus = photoServiceInstanceInfo.getStatus();
         System.out.println("photo status: " + photoStatus);
