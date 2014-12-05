@@ -1,0 +1,12 @@
+---
+applications:
+- name: bootcamp
+  memory: 512M
+  instances: 1
+  path: target/demo-0.0.1-SNAPSHOT.war
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+  services:
+  - bootcamp-db
+  - session-replication
+
