@@ -46,8 +46,16 @@ public class Movie {
         return genres;
     }
 
-    public void setGenre(List<Genre> genres) {
+    public void setGenres(List<Genre> genres) {
         this.genres = genres;
+    }
+
+    public String getMlId() {
+        return mlId;
+    }
+
+    public void setMlId(String mlId) {
+        this.mlId = mlId;
     }
 
     public int getNumberInStock() {

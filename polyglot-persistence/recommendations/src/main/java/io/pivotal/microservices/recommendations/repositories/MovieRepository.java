@@ -10,5 +10,9 @@ public interface MovieRepository extends GraphRepository<Movie> {
     @Query("MATCH (p:Person) WHERE p.userName = {0} MATCH p-[:LIKES]->movie<-[:LIKES]-slm-[:LIKES]->recommendations " +
             "WHERE not(p = slm) and not (p--recommendations) return recommendations")
     Iterable<Movie> recommendedMoviesFor(String userName);
+
+    @Query("MATCH (movie:Movie) WHERE movie.mlId = {0} MATCH movie<-[:LIKES]-slm-[:LIKES]->recommendations " +
+            "RETURN distinct recommendations")
+    Iterable<Movie> moviesLikedByPeopleWhoLiked(String mlId);
 }
 
