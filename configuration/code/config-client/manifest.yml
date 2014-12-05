@@ -1,0 +1,14 @@
+---
+applications:
+- name: config-client
+  memory: 512M
+  instances: 1
+  host: config-client-${random-word}
+  domain: cfapps.io
+  path: target/config-client.jar
+  services:
+      - config-server
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+    DEBUG: "true"
+    debug: "true"
