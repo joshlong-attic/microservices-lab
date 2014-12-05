@@ -4,7 +4,6 @@ import com.netflix.appinfo.InstanceInfo;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -15,10 +14,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -85,8 +84,8 @@ class Bookmark {
 }
 
 
-@Component
-class Client implements CommandLineRunner {
+@RestController
+class Client {
 
     @Autowired
     private com.netflix.discovery.DiscoveryClient discoveryClient;
@@ -95,10 +94,10 @@ class Client implements CommandLineRunner {
     private RestTemplate restTemplate;
 
     @Autowired
-    private BookmarkClient bookmarkClient ;
+    private BookmarkClient bookmarkClient;
 
-    @Override
-    public void run(String... args) throws Exception {
+    @RequestMapping("/connect")
+    public void connect() throws Exception {
 
         // get the info directly from the Eureka DiscoveryClient
         InstanceInfo photoServiceInstanceInfo = discoveryClient.getNextServerFromEureka("photo-service", false);
@@ -116,13 +115,14 @@ class Client implements CommandLineRunner {
         System.out.println("photo status: " + photoStatus);
 
         // use the "smart" Eureka-aware RestTemplate
-      /*  ResponseEntity<List<Bookmark>> exchange = this.restTemplate.exchange(
+        ResponseEntity<List<Bookmark>> exchange = this.restTemplate.exchange(
                 "http://bookmark-service/{userId}/bookmarks", HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<Bookmark>>() {}, (Object) "mstine");
+                new ParameterizedTypeReference<List<Bookmark>>() {
+                }, (Object) "mstine");
         exchange.getBody().forEach(System.out::println);
-*/
+
         // use the smart Eureka-aware Feign support
-         bookmarkClient.getBookmarks("jlong").forEach(System.out::println);
+        bookmarkClient.getBookmarks("jlong").forEach(System.out::println);
     }
 
 
