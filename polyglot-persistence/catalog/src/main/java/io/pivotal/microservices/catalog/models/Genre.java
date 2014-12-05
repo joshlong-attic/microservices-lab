@@ -1,4 +1,4 @@
-package io.spring.usrvws.pgp_pgsql.models;
+package io.pivotal.microservices.catalog.models;
 
 import javax.persistence.*;
 import java.util.List;

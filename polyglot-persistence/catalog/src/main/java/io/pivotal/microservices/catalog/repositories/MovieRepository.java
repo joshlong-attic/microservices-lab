@@ -1,6 +1,6 @@
-package io.spring.usrvws.pgp_pgsql.repositories;
+package io.pivotal.microservices.catalog.repositories;
 
-import io.spring.usrvws.pgp_pgsql.models.Movie;
+import io.pivotal.microservices.catalog.models.Movie;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

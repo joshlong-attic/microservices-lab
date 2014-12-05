@@ -1,4 +1,4 @@
-package io.spring.usrvws.pgp_pgsql;
+package io.pivotal.microservices.catalog;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.spring.usrvws</groupId>
-	<artifactId>pgp-pgsql</artifactId>
+	<groupId>io.pivotal.microservices</groupId>
+	<artifactId>microservices-catalog</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>pgp-pgsql</name>
-	<description>Spring Microservices Workshop: Polyglot Persistence Module with PostgreSQL</description>
+	<name>microservices-catalog</name>
+	<description>Movie Catalog Microservice</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -48,7 +48,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>io.spring.usrvws.pgp-pgsql.Application</start-class>
+		<start-class>io.pivotal.microservices.catalog.Application</start-class>
 		<java.version>1.8</java.version>
 	</properties>
 
