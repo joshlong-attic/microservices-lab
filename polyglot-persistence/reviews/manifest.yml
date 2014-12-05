@@ -8,4 +8,5 @@ applications:
     SPRING_PROFILES_ACTIVE: cloud
   services:
   - reviews-db
+  - eureka-service
 

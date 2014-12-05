@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import rx.Observable;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -17,7 +18,7 @@ public class ReviewsIntegrationService {
     @Autowired
     RestTemplate restTemplate;
 
-    @HystrixCommand
+    @HystrixCommand(fallbackMethod = "stubReviews")
     public Observable<List<Review>> reviewsFor(String mlId) {
         return new ObservableResult<List<Review>>() {
             @Override
@@ -25,6 +26,21 @@ public class ReviewsIntegrationService {
                 ParameterizedTypeReference<List<Review>> responseType = new ParameterizedTypeReference<List<Review>>() {
                 };
                 return restTemplate.exchange("http://reviews-service/reviews/reviews/{mlId}", HttpMethod.GET, null, responseType, mlId).getBody();
+            }
+        };
+    }
+
+    public Observable<List<Review>> stubReviews(String mlId) {
+        return new ObservableResult<List<Review>>() {
+            @Override
+            public List<Review> invoke() {
+                Review review = new Review();
+                review.setMlId(mlId);
+                review.setRating(4);
+                review.setTitle("Interesting...the wrong title. Sssshhhh!");
+                review.setReview("Awesome sauce!");
+                review.setUserName("joeblow");
+                return Arrays.asList(review);
             }
         };
     }
