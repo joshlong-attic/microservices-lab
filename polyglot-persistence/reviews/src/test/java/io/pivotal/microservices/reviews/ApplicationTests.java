@@ -1,4 +1,4 @@
-package io.pivotal.microservices.mongodb;
+package io.pivotal.microservices.reviews;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

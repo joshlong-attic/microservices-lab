@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.pivotal.microservices</groupId>
-	<artifactId>microservices-mongodb</artifactId>
+	<artifactId>microservices-reviews</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>microservices-mongodb</name>
-	<description>MongoDB Microservice</description>
+	<name>microservices-rewviews</name>
+	<description>Movie Recommendations Microservice</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -54,7 +54,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>io.pivotal.microservices.mongodb.Application</start-class>
+		<start-class>io.pivotal.microservices.reviews.Application</start-class>
 		<java.version>1.8</java.version>
 	</properties>
 

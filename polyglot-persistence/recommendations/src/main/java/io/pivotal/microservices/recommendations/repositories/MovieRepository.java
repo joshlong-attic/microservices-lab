@@ -1,6 +1,6 @@
-package io.pivotal.microservices.neo4j.repositories;
+package io.pivotal.microservices.recommendations.repositories;
 
-import io.pivotal.microservices.neo4j.model.Movie;
+import io.pivotal.microservices.recommendations.model.Movie;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 

@@ -1,11 +1,11 @@
-package io.pivotal.microservices.neo4j;
+package io.pivotal.microservices.recommendations;
 
-import io.pivotal.microservices.neo4j.model.Likes;
-import io.pivotal.microservices.neo4j.model.Movie;
-import io.pivotal.microservices.neo4j.model.Person;
-import io.pivotal.microservices.neo4j.repositories.LikesRepository;
-import io.pivotal.microservices.neo4j.repositories.MovieRepository;
-import io.pivotal.microservices.neo4j.repositories.PersonRepository;
+import io.pivotal.microservices.recommendations.model.Likes;
+import io.pivotal.microservices.recommendations.model.Movie;
+import io.pivotal.microservices.recommendations.model.Person;
+import io.pivotal.microservices.recommendations.repositories.LikesRepository;
+import io.pivotal.microservices.recommendations.repositories.MovieRepository;
+import io.pivotal.microservices.recommendations.repositories.PersonRepository;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
-@EnableNeo4jRepositories(basePackages = "io.pivotal.microservices.neo4j.repositories")
+@EnableNeo4jRepositories(basePackages = "io.pivotal.microservices.recommendations.repositories")
 @RestController
 public class Application implements CommandLineRunner {
     public static void main(String[] args) {

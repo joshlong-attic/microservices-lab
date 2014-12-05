@@ -1,6 +1,6 @@
-package io.pivotal.microservices.mongodb;
+package io.pivotal.microservices.reviews;
 
-import io.pivotal.microservices.mongodb.repositories.ReviewRepository;
+import io.pivotal.microservices.reviews.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

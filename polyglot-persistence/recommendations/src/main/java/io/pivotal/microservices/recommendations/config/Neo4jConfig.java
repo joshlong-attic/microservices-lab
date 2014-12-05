@@ -1,4 +1,4 @@
-package io.pivotal.microservices.neo4j.config;
+package io.pivotal.microservices.recommendations.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 @Configuration
 public class Neo4jConfig extends Neo4jConfiguration {
     public Neo4jConfig() {
-        setBasePackage("io.pivotal.microservices.neo4j.model");
+        setBasePackage("io.pivotal.microservices.recommendations.model");
     }
 
     @Bean

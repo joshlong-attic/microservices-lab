@@ -1,6 +1,6 @@
-package io.pivotal.microservices.neo4j.repositories;
+package io.pivotal.microservices.recommendations.repositories;
 
-import io.pivotal.microservices.neo4j.model.Person;
+import io.pivotal.microservices.recommendations.model.Person;
 import org.springframework.data.neo4j.repository.GraphRepository;
 
 public interface PersonRepository extends GraphRepository<Person> {

@@ -1,6 +1,6 @@
-package io.pivotal.microservices.mongodb.repositories;
+package io.pivotal.microservices.reviews.repositories;
 
-import io.pivotal.microservices.mongodb.models.Review;
+import io.pivotal.microservices.reviews.models.Review;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

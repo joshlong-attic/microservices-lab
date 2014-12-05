@@ -1,4 +1,4 @@
-package io.pivotal.microservices.neo4j.model;
+package io.pivotal.microservices.recommendations.model;
 
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;

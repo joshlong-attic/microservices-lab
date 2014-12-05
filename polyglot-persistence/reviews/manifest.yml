@@ -3,7 +3,7 @@ applications:
 - name: ms-reviews-service
   memory: 512M
   instances: 1
-  path: target/microservices-mongodb-0.0.1-SNAPSHOT.jar
+  path: target/microservices-reviews-0.0.1-SNAPSHOT.jar
   env:
     SPRING_PROFILES_ACTIVE: cloud
   services:

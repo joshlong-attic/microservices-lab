@@ -1,4 +1,4 @@
-package io.pivotal.microservices.neo4j.config;
+package io.pivotal.microservices.recommendations.config;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
@@ -12,7 +12,7 @@ public class LocalConfig {
 
     @Bean
     public GraphDatabaseService graphDatabaseService() {
-        return new GraphDatabaseFactory().newEmbeddedDatabase("/tmp/neo4j");
+        return new GraphDatabaseFactory().newEmbeddedDatabase("/tmp/recommendations");
     }
 
 }

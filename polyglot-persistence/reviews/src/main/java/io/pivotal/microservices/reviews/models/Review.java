@@ -1,4 +1,4 @@
-package io.pivotal.microservices.mongodb.models;
+package io.pivotal.microservices.reviews.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
