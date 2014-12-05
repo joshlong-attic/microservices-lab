@@ -39,9 +39,9 @@ public class Application {
         };
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+//    public static void main(String[] args) {
+//        SpringApplication.run(Application.class, args);
+//    }
 }
 
 @Controller
@@ -54,6 +54,11 @@ class ReservationMvcController {
     String string(Model model) {
         model.addAttribute("reservations", this.reservationRepository.findAll());
         return "reservations"; // src/main/resources/templates + $X + .html
+    }
+
+    @RequestMapping("/die.php")
+    void die() {
+        System.exit(1);
     }
 }
 
