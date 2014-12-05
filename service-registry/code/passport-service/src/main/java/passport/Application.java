@@ -33,7 +33,7 @@ public class Application extends FeignConfigurer {
     }
 
     @Bean
-    public BookmarkClient bookmarkClient() {
+    BookmarkClient bookmarkClient() {
         return loadBalance(BookmarkClient.class, "http://bookmark-service");
     }
 }
@@ -102,7 +102,8 @@ class Client {
     public void connect() throws Exception {
 
         // get the info directly from the Eureka DiscoveryClient
-        InstanceInfo photoServiceInstanceInfo = discoveryClient.getNextServerFromEureka("photo-service", false);
+        InstanceInfo photoServiceInstanceInfo = discoveryClient.getNextServerFromEureka(
+                "photo-service", false);
         System.out.println("photoService: " + ToStringBuilder.reflectionToString(photoServiceInstanceInfo, ToStringStyle.MULTI_LINE_STYLE));
 
         InstanceInfo bookmarkServiceInstanceInfo = discoveryClient.getNextServerFromEureka(
