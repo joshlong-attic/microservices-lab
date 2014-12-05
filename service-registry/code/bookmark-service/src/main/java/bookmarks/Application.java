@@ -30,12 +30,15 @@ public class Application {
 
     @Bean
     CommandLineRunner init(BookmarkRepository bookmarkRepository) {
-        return args ->
-                Arrays.asList("mstine", "jlong").forEach(n ->
+        return args -> {
+            bookmarkRepository.deleteAll();
+
+            Arrays.asList("mstine", "jlong").forEach(n ->
                     bookmarkRepository.save(new Bookmark(n,
-                                "http://some-other-host" + n + ".com/",
-                                "A description for " + n + "'s link",
-                                n)));
+                            "http://some-other-host" + n + ".com/",
+                            "A description for " + n + "'s link",
+                            n)));
+        };
     }
 }
 

@@ -5,7 +5,6 @@ set -e
 # the big CloudFoundry installer
 #
 
-
 CLOUD_DOMAIN=${DOMAIN:-run.pivotal.io}
 CLOUD_TARGET=api.${DOMAIN}
 
@@ -59,21 +58,16 @@ function deploy_passport_service(){
   deploy_app passport-service
 }
 
-
 function reset(){
   cf d eureka-service
   cf d photo-service
+  cf d passport-service
   cf d bookmark-service
-
+  cf ds photo-service-mongodb
+  cf ds bookmark-service-postgresql
   cf ds eureka-service
   cf delete-orphaned-routes
 }
-
-
-### INSTALLATION STEPS
-### feel free to comment out all the steps that you don't need
-### and selectively uncomment them if the script in total encounters
-### IO errors and such.
 
 mvn -DskipTests=true clean install
 
