@@ -23,7 +23,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>bookmarks.Application</start-class>
         <java.version>1.8</java.version>
     </properties>
 

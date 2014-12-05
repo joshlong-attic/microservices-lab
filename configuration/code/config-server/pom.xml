@@ -8,24 +8,19 @@
       <artifactId>root</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>basics</artifactId>
+    <artifactId>config-server</artifactId>
     <packaging>jar</packaging>
 
-
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>
-      <start-class>boot.Application</start-class>
+      <start-class>cloud.server.Application</start-class>
     </properties>
 
 
