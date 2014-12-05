@@ -46,7 +46,7 @@ public class Application {
     public DeferredResult<MovieDetails> movieDetails(@PathVariable String mlId) {
         Observable<MovieDetails> details = Observable.zip(catalogIntegrationService.getMovie(mlId),
                 reviewsIntegrationService.reviewsFor(mlId),
-                recommendationsIntegrationService.getMovie(mlId), (movie, reviews, recommendations) -> {
+                recommendationsIntegrationService.getRecommendations(mlId), (movie, reviews, recommendations) -> {
                     MovieDetails movieDetails = new MovieDetails();
                     movieDetails.setMlId(movie.getMlId());
                     movieDetails.setTitle(movie.getTitle());

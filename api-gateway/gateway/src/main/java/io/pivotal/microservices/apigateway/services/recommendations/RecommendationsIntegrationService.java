@@ -17,7 +17,7 @@ public class RecommendationsIntegrationService {
     RestTemplate restTemplate;
 
     @HystrixCommand
-    public Observable<List<Movie>> getMovie(final String mlId) {
+    public Observable<List<Movie>> getRecommendations(final String mlId) {
         return new ObservableResult<List<Movie>>() {
             @Override
             public List<Movie> invoke() {
