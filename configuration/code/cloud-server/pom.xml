@@ -8,7 +8,7 @@
       <artifactId>root</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>cloud-server</artifactId>
+    <artifactId>config-server</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
