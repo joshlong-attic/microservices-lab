@@ -1,2 +1,11 @@
 server:
   port: 8082
+
+---
+
+spring:
+  profiles: cloud
+eureka:
+  instance:
+    hostname: ms-recommendations-service.cfapps.io
+    nonSecurePort: 80

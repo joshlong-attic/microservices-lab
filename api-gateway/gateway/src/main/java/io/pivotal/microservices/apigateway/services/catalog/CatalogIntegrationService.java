@@ -13,7 +13,7 @@ public class CatalogIntegrationService {
     @Autowired
     RestTemplate restTemplate;
 
-    @HystrixCommand
+    @HystrixCommand(fallbackMethod = "stubMovie")
     public Observable<Movie> getMovie(final String mlId) {
         return new ObservableResult<Movie>() {
             @Override
@@ -21,5 +21,12 @@ public class CatalogIntegrationService {
                 return restTemplate.getForObject("http://catalog-service/catalog/movies/{mlId}", Movie.class, mlId);
             }
         };
+    }
+
+    private Movie stubMovie(final String mlId) {
+        Movie stub = new Movie();
+        stub.setMlId(mlId);
+        stub.setTitle("Interesting...the wrong title. Sssshhhh!");
+        return stub;
     }
 }

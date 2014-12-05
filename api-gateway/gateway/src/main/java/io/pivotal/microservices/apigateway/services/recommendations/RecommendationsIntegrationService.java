@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import rx.Observable;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -16,7 +17,7 @@ public class RecommendationsIntegrationService {
     @Autowired
     RestTemplate restTemplate;
 
-    @HystrixCommand
+    @HystrixCommand(fallbackMethod = "stubRecommendations")
     public Observable<List<Movie>> getRecommendations(final String mlId) {
         return new ObservableResult<List<Movie>>() {
             @Override
@@ -26,5 +27,15 @@ public class RecommendationsIntegrationService {
                 return restTemplate.exchange("http://recommendations-service/recommendations/forMovie/{mlId}", HttpMethod.GET, null, responseType, mlId).getBody();
             }
         };
+    }
+
+    private List<Movie> stubRecommendations(final String mlId) {
+        Movie one = new Movie();
+        one.setMlId("25");
+        one.setMlId("A movie which doesn't exist");
+        Movie two = new Movie();
+        two.setMlId("26");
+        two.setMlId("A movie about nothing");
+        return Arrays.asList(one, two);
     }
 }

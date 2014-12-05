@@ -30,18 +30,14 @@ public class ReviewsIntegrationService {
         };
     }
 
-    public Observable<List<Review>> stubReviews(String mlId) {
-        return new ObservableResult<List<Review>>() {
-            @Override
-            public List<Review> invoke() {
-                Review review = new Review();
-                review.setMlId(mlId);
-                review.setRating(4);
-                review.setTitle("Interesting...the wrong title. Sssshhhh!");
-                review.setReview("Awesome sauce!");
-                review.setUserName("joeblow");
-                return Arrays.asList(review);
-            }
-        };
+    private List<Review> stubReviews(String mlId) {
+        Review review = new Review();
+        review.setMlId(mlId);
+        review.setRating(4);
+        review.setTitle("Interesting...the wrong title. Sssshhhh!");
+        review.setReview("Awesome sauce!");
+        review.setUserName("joeblow");
+        return Arrays.asList(review);
     }
+
 }

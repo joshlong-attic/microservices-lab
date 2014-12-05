@@ -10,3 +10,11 @@ zuul:
       catalog-service: /catalog
       recommendations-service: /recommendations
 
+---
+
+spring:
+  profiles: cloud
+eureka:
+  instance:
+    hostname: ms-api-gateway-service.cfapps.io
+    nonSecurePort: 80
