@@ -17,6 +17,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>services</module>
+        <module>configuration</module>
         <module>service-registration-and-discovery</module>
     </modules>
 
