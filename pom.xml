@@ -16,8 +16,10 @@
     <packaging>pom</packaging>
     <modules>
         <module>config-service</module>
-        <!--
         <module>eureka-service</module>
+        <module>auth-service</module>
+
+        <!--
         <module>hystrix-service</module> -->
 
         <!-- <module>photo-service</module>

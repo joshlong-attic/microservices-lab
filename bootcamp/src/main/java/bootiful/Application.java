@@ -28,7 +28,7 @@ public class Application {
 
     @Bean
     HealthIndicator healthIndicator() {
-        return () -> Health.status("I <3 RWX & Ft. Lauderdale").build();
+        return () -> Health.status("I <3 Microservices").build();
     }
 
     @Bean
