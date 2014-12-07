@@ -15,12 +15,10 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>gateway</module>
+
         <module>hystrix-dashboard</module>
-
         <module>eureka</module>
-
-        <module>config-service</module>
+        <module>gateway</module>
 
     </modules>
 
