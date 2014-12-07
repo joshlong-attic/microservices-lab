@@ -2,22 +2,32 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.2.0.RC2</version>
     </parent>
 
-
     <groupId>microservices</groupId>
     <artifactId>root</artifactId>
+
     <version>0.0.1-SNAPSHOT</version>
+
     <packaging>pom</packaging>
     <modules>
+        <!--
+         common infrastructure services.
+         NB:  It's easy to set this stuff up.
+              But you shouldn't have to.
+              Soon, you'll be able to stand that up
+              in Cloud Foundry using a simple
+              `cf create-service ...`.
+        -->
         <module>config-service</module>
         <module>eureka-service</module>
         <module>auth-service</module>
+        <module>hystrix-service</module>
 
         <!--
         <module>hystrix-service</module> -->
