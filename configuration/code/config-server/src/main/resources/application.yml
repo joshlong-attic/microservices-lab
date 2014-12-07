@@ -1,7 +1,7 @@
 server:
   port: 8888
 
-#conf : /Users/jlong/Desktop/git
+conf : /Users/jlong/Desktop/microservices-lab-configuration
 
 spring:
   cloud:
