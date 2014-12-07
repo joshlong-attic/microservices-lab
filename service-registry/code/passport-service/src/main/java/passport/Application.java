@@ -38,6 +38,59 @@ public class Application extends FeignConfigurer {
     }
 }
 
+@RestController
+class Client {
+
+    @Autowired
+    private com.netflix.discovery.DiscoveryClient discoveryClient;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private BookmarkClient bookmarkClient;
+
+    // TODO NB: don't call this until about 30s after it's started up!!!
+    // the load balancers need to refresh their list of servers otherwise they'll fail.
+    @RequestMapping("/connect")
+    public void connect() throws Exception {
+
+        // get the info directly from the Eureka DiscoveryClient
+        InstanceInfo photoServiceInstanceInfo = discoveryClient.getNextServerFromEureka(
+                "photo-service", false);
+        System.out.println("photoService: " + ToStringBuilder.reflectionToString(photoServiceInstanceInfo, ToStringStyle.MULTI_LINE_STYLE));
+
+        InstanceInfo bookmarkServiceInstanceInfo = discoveryClient.getNextServerFromEureka(
+                "bookmark-service", false);
+        System.out.println("bookmarkService: " + ToStringBuilder.reflectionToString(
+                bookmarkServiceInstanceInfo, ToStringStyle.MULTI_LINE_STYLE));
+
+        InstanceInfo.InstanceStatus bookmarkStatus = bookmarkServiceInstanceInfo.getStatus();
+        System.out.println("bookmark status: " + bookmarkStatus);
+
+        InstanceInfo.InstanceStatus photoStatus = photoServiceInstanceInfo.getStatus();
+        System.out.println("photo status: " + photoStatus);
+
+        // use the "smart" Eureka-aware RestTemplate
+        ResponseEntity<List<Bookmark>> exchange =
+            this.restTemplate.exchange(
+                "http://bookmark-service/{userId}/bookmarks",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<Bookmark>>() {},
+                    (Object) "mstine");
+        exchange.getBody().forEach(System.out::println);
+
+        // use the smart Eureka-aware Feign support
+        bookmarkClient.getBookmarks("jlong").forEach(System.out::println);
+    }
+
+
+}
+
+
+
+
 interface BookmarkClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{userId}/bookmarks")
@@ -83,50 +136,3 @@ class Bookmark {
     }
 }
 
-
-@RestController
-class Client {
-
-    @Autowired
-    private com.netflix.discovery.DiscoveryClient discoveryClient;
-
-    @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
-    private BookmarkClient bookmarkClient;
-
-    // TODO NB: don't call this until about 30s after it's started up!!!
-    // the load balancers need to refresh their list of servers otherwise they'll fail.
-    @RequestMapping("/connect")
-    public void connect() throws Exception {
-
-        // get the info directly from the Eureka DiscoveryClient
-        InstanceInfo photoServiceInstanceInfo = discoveryClient.getNextServerFromEureka(
-                "photo-service", false);
-        System.out.println("photoService: " + ToStringBuilder.reflectionToString(photoServiceInstanceInfo, ToStringStyle.MULTI_LINE_STYLE));
-
-        InstanceInfo bookmarkServiceInstanceInfo = discoveryClient.getNextServerFromEureka(
-                "bookmark-service", false);
-        System.out.println("bookmarkService: " + ToStringBuilder.reflectionToString(
-                bookmarkServiceInstanceInfo, ToStringStyle.MULTI_LINE_STYLE));
-
-        InstanceInfo.InstanceStatus bookmarkStatus = bookmarkServiceInstanceInfo.getStatus();
-        System.out.println("bookmark status: " + bookmarkStatus);
-
-        InstanceInfo.InstanceStatus photoStatus = photoServiceInstanceInfo.getStatus();
-        System.out.println("photo status: " + photoStatus);
-
-        // use the "smart" Eureka-aware RestTemplate
-        ResponseEntity<List<Bookmark>> exchange = this.restTemplate.exchange(
-                "http://bookmark-service/{userId}/bookmarks", HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<Bookmark>>() {
-                }, (Object) "mstine");
-        exchange.getBody().forEach(System.out::println);
-
-        // use the smart Eureka-aware Feign support
-        bookmarkClient.getBookmarks("jlong").forEach(System.out::println);
-    }
-
-
-}

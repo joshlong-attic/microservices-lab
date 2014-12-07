@@ -28,6 +28,7 @@ import java.security.Principal;
 @EnableOAuth2Resource
 public class Application {
 
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
@@ -46,6 +47,7 @@ class PhotoRestController {
                           UriComponentsBuilder uriBuilder) throws IOException {
 
         String userId  = principal.getName() ;
+
 
         try (InputStream inputStream = multipartFile.getInputStream()) {
             this.gridFsTemplate.store(inputStream, userId);

@@ -5,13 +5,10 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.FeignConfigurer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+
+interface BookmarkClient {
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{userId}/bookmarks")
+    List<Bookmark> getBookmarks(@PathVariable("userId") String userId);
+}
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -37,15 +40,12 @@ public class Application extends FeignConfigurer {
     }
 }
 
-interface BookmarkClient {
-
-    @RequestMapping(method = RequestMethod.GET, value = "/{userId}/bookmarks")
-    List<Bookmark> getBookmarks(@PathVariable("userId") String userId);
-}
-
 class Bookmark {
     private Long id;
     private String href, label, description, userId;
+
+    public Bookmark() {
+    }
 
     @Override
     public String toString() {
@@ -56,9 +56,6 @@ class Bookmark {
                 ", description='" + description + '\'' +
                 ", userId='" + userId + '\'' +
                 '}';
-    }
-
-    public Bookmark() {
     }
 
     public Long getId() {

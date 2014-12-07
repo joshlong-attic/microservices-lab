@@ -18,6 +18,13 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
+
+    Bookmark findByUserIdAndId(String userId, Long id);
+
+    List<Bookmark> findByUserId(String userId);
+}
+
 @SpringBootApplication
 @EnableEurekaClient
 @EnableOAuth2Resource
@@ -42,6 +49,9 @@ public class Application {
 @RequestMapping("/bookmarks")
 class BookmarkRestController {
 
+    @Autowired
+    private BookmarkRepository bookmarkRepository;
+
     @RequestMapping(method = RequestMethod.GET)
     Collection<Bookmark> getBookmarks(Principal principal) {
         String userId = principal.getName();
@@ -62,31 +72,21 @@ class BookmarkRestController {
         return this.bookmarkRepository.save(bookmarkInstance);
     }
 
-    @Autowired
-    private BookmarkRepository bookmarkRepository;
-
-}
-
-
-interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
-
-    Bookmark findByUserIdAndId(String userId, Long id);
-
-    List<Bookmark> findByUserId(String userId);
 }
 
 @Entity
 class Bookmark {
 
-    private String userId;
-
     @Id
     @GeneratedValue
     private Long id;
 
+    private String userId;
+
     private String href;
 
     private String description;
+    private String label;
 
     Bookmark() {
     }
@@ -118,6 +118,4 @@ class Bookmark {
     public String getDescription() {
         return description;
     }
-
-    private String label;
 }
