@@ -16,6 +16,7 @@
 
     <packaging>pom</packaging>
     <modules>
+        <module>bootcamp</module>
         <module>services</module>
         <module>configuration</module>
         <module>service-registration-and-discovery</module>
