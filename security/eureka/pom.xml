@@ -11,8 +11,8 @@
     </parent>
 
 
-     <artifactId>eureka</artifactId>
-     <packaging>jar</packaging>
+    <artifactId>eureka</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
 

@@ -25,8 +25,8 @@ import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 
 /**
  * Easy to retrieve an access token using:
- * {@code  curl -X POST -vu acme:acmesecret http://localhost:8002/auth/oauth/token -H "Accept: application/json" -d "password=password&username=jlong&grant_type=password&scope=read&client_secret=acmesecret&client_id=acme" }
- *
+ * {@code curl -X POST -vu acme:acmesecret http://localhost:8002/auth/oauth/token -H "Accept: application/json" -d "password=password&username=jlong&grant_type=password&scope=read&client_secret=acmesecret&client_id=acme" }
+ * <p/>
  * Then, send the access token to an OAuth2 secured REST resource using:
  * {@code curl http://localhost:8080/api -H "Authorization: Bearer _INSERT TOKEN_}
  *
@@ -45,12 +45,12 @@ public class Application {
 
         RowMapper<User> userRowMapper = (rs, i) ->
                 new User(
-                    rs.getString("ACCOUNT_NAME"),
-                    rs.getString("PASSWORD"),
-                    rs.getBoolean("ENABLED"),
-                    rs.getBoolean("ENABLED"),
-                    rs.getBoolean("ENABLED"),
-                    rs.getBoolean("ENABLED"),
+                        rs.getString("ACCOUNT_NAME"),
+                        rs.getString("PASSWORD"),
+                        rs.getBoolean("ENABLED"),
+                        rs.getBoolean("ENABLED"),
+                        rs.getBoolean("ENABLED"),
+                        rs.getBoolean("ENABLED"),
                         AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN"));
 
         return username -> jdbcTemplate.queryForObject(
@@ -70,7 +70,7 @@ public class Application {
             baseClientDetails.setClientSecret(rs.getString("CLIENT_SECRET"));
             return baseClientDetails;
         };
-        return  clientId -> jdbcTemplate.queryForObject(
+        return clientId -> jdbcTemplate.queryForObject(
                 "select * from CLIENT_DETAILS where CLIENT_ID=?", clientDetailsRowMapper, clientId);
     }
 

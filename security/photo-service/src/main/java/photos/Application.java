@@ -46,7 +46,7 @@ class PhotoRestController {
                           @RequestParam MultipartFile multipartFile,
                           UriComponentsBuilder uriBuilder) throws IOException {
 
-        String userId  = principal.getName() ;
+        String userId = principal.getName();
 
 
         try (InputStream inputStream = multipartFile.getInputStream()) {
@@ -59,7 +59,7 @@ class PhotoRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity<Resource> get(Principal principal ) {
+    ResponseEntity<Resource> get(Principal principal) {
         String userId = principal.getName();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.IMAGE_JPEG);

@@ -1,6 +1,5 @@
 package io.pivotal.microservices.catalog.models;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -19,8 +18,8 @@ public class Movie {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "movies_genres",
-            joinColumns = {@JoinColumn(name="movie_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name="genre_id", referencedColumnName = "id")})
+            joinColumns = {@JoinColumn(name = "movie_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "genre_id", referencedColumnName = "id")})
     private List<Genre> genres;
 
     @Column(nullable = false)

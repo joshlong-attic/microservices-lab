@@ -9,6 +9,7 @@
         <artifactId>root</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+    <name>services:hystrix-service</name>
     <artifactId>hystrix-service</artifactId>
 
     <dependencies>

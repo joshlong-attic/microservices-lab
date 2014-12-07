@@ -16,25 +16,8 @@
 
     <packaging>pom</packaging>
     <modules>
-        <!--
-         common infrastructure services.
-         NB:  It's easy to set this stuff up.
-              But you shouldn't have to.
-              Soon, you'll be able to stand that up
-              in Cloud Foundry using a simple
-              `cf create-service ...`.
-        -->
         <module>services</module>
-      
-        <!--
-        <module>hystrix-service</module> -->
-
-        <!-- <module>photo-service</module>
-
-        <module>bookmark-service</module>
-
-        <module>passport-service</module>-->
-
+        <module>service-registration-and-discovery</module>
     </modules>
 
 

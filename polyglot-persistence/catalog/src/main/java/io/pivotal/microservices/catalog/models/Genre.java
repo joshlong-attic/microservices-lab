@@ -1,9 +1,7 @@
 package io.pivotal.microservices.catalog.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Entity

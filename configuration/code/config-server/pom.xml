@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-      <groupId>configuration</groupId>
-      <artifactId>root</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+        <groupId>configuration</groupId>
+        <artifactId>root</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>config-server</artifactId>
     <packaging>jar</packaging>
@@ -20,7 +20,7 @@
     </dependencies>
 
     <properties>
-      <start-class>cloud.server.Application</start-class>
+        <start-class>cloud.server.Application</start-class>
     </properties>
 
 

@@ -5,26 +5,22 @@
 
 
     <parent>
-        <groupId>service-discovery</groupId>
+        <groupId>microservices</groupId>
         <artifactId>root</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+    <name>service-registration-and-discovery:passport-service</name>
 
     <artifactId>passport-service</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
-        <!--
-          this is only here b/c of a bug in M3. It's fixed in master.
-        -->
+
         <dependency>
+            <!-- TODO: this is only here b/c of a bug in M3. It's fixed in master. -->
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-hystrix</artifactId>
         </dependency>
-        <!--
-        this is only here b/c of a bug in M3. It's fixed in master.
-        -->
-
         <dependency>
             <groupId>com.netflix.feign</groupId>
             <artifactId>feign-core</artifactId>

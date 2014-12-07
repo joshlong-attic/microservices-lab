@@ -73,12 +73,13 @@ class Client {
 
         // use the "smart" Eureka-aware RestTemplate
         ResponseEntity<List<Bookmark>> exchange =
-            this.restTemplate.exchange(
-                "http://bookmark-service/{userId}/bookmarks",
-                    HttpMethod.GET,
-                    null,
-                    new ParameterizedTypeReference<List<Bookmark>>() {},
-                    (Object) "mstine");
+                this.restTemplate.exchange(
+                        "http://bookmark-service/{userId}/bookmarks",
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<List<Bookmark>>() {
+                        },
+                        (Object) "mstine");
         exchange.getBody().forEach(System.out::println);
 
         // use the smart Eureka-aware Feign support
@@ -87,8 +88,6 @@ class Client {
 
 
 }
-
-
 
 
 interface BookmarkClient {
