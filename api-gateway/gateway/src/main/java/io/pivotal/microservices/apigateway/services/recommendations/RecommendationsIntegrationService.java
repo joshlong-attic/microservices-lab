@@ -1,6 +1,7 @@
 package io.pivotal.microservices.apigateway.services.recommendations;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.contrib.javanica.command.ObservableResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -17,7 +18,10 @@ public class RecommendationsIntegrationService {
     @Autowired
     RestTemplate restTemplate;
 
-    @HystrixCommand(fallbackMethod = "stubRecommendations")
+    @HystrixCommand(fallbackMethod = "stubRecommendations",
+            commandProperties = {
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+            })
     public Observable<List<Movie>> getRecommendations(final String mlId) {
         return new ObservableResult<List<Movie>>() {
             @Override
