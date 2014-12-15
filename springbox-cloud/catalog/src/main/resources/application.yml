@@ -14,7 +14,7 @@ spring:
 spring:
   profiles: cloud
   jpa:
-    database: POSTGRESQL
+    database: MYSQL
 eureka:
   instance:
     hostname: ms-catalog-service.cfapps.io

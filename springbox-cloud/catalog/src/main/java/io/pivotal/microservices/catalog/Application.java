@@ -1,6 +1,5 @@
 package io.pivotal.microservices.catalog;
 
-import com.netflix.discovery.converters.Auto;
 import io.pivotal.microservices.catalog.models.Genre;
 import io.pivotal.microservices.catalog.models.Movie;
 import io.pivotal.microservices.catalog.repositories.GenreRepository;
