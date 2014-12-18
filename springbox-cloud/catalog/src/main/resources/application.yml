@@ -17,5 +17,5 @@ spring:
     database: MYSQL
 eureka:
   instance:
-    hostname: ms-catalog-service.cfapps.io
+    hostname: ms-catalog-service.cf.deepsouthcloud.com
     nonSecurePort: 80

@@ -1,8 +1,3 @@
 spring:
   application:
     name: catalog-service
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${vcap.services.service-registry.credentials.uri:http://127.0.0.1:8761}/eureka/

@@ -19,6 +19,7 @@ allprojects {
   apply plugin: 'idea'
 
   repositories {
+      mavenLocal()
       mavenCentral()
       maven { url "https://repo.spring.io/snapshot" }
       maven { url "https://repo.spring.io/milestone" }
@@ -35,8 +36,9 @@ subprojects {
   dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector")
-    compile("org.springframework.cloud:spring-cloud-spring-service-connector")
+    compile("org.springframework.cloud:spring-cloud-pcf-connector:1.1.1.BUILD-SNAPSHOT")
+    compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.1.1.BUILD-SNAPSHOT")
+    compile("org.springframework.cloud:spring-cloud-spring-service-connector:1.1.1.BUILD-SNAPSHOT")
     compile("org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudVersion}")
     compile("org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}")
     testCompile("org.springframework.boot:spring-boot-starter-test")
