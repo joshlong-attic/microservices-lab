@@ -7,5 +7,5 @@ spring:
   profiles: cloud
 eureka:
   instance:
-    hostname: ms-recommendations-service.cfapps.io
+    hostname: ms-recommendations-service.cf.deepsouthcloud.com
     nonSecurePort: 80

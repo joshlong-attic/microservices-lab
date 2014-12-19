@@ -4,20 +4,24 @@ import org.springframework.cloud.service.BaseServiceInfo;
 
 public class GraphDatabaseServiceInfo extends BaseServiceInfo {
 
-    private String uri;
-    private String username;
-    private String password;
+    private final int httpPort;
+    private final int httpsPort;
+    private final String host;
+    private final String username;
+    private final String password;
 
-    public GraphDatabaseServiceInfo(String id, String uri, String username, String password) {
+    public GraphDatabaseServiceInfo(String id, String host, String username, String password, int httpPort, int httpsPort) {
         super(id);
-        this.uri = uri;
+        this.host = host;
         this.username = username;
         this.password = password;
+        this.httpPort = httpPort;
+        this.httpsPort = httpsPort;
     }
 
     @ServiceProperty
-    public String getUri() {
-        return uri;
+    public String getHost() {
+        return host;
     }
 
     @ServiceProperty
@@ -28,5 +32,15 @@ public class GraphDatabaseServiceInfo extends BaseServiceInfo {
     @ServiceProperty
     public String getPassword() {
         return password;
+    }
+
+    @ServiceProperty
+    public int getHttpPort() {
+        return httpPort;
+    }
+
+    @ServiceProperty
+    public int getHttpsPort() {
+        return httpsPort;
     }
 }
