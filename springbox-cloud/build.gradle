@@ -136,7 +136,7 @@ project(':recommendations') {
     }
 
     dependencies {
-        compile("org.springframework.data:spring-data-neo4j-rest:3.2.1.RELEASE")
+        compile("org.springframework.data:spring-data-neo4j-rest:3.3.0.M1")
         compile("org.hibernate:hibernate-validator")
     }
 }
