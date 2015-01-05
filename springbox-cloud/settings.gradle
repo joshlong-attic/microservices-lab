@@ -1,1 +1,1 @@
-include "catalog", "configserver", "eureka", "gateway", "hystrixDashboard", "recommendations", "reviews"
+include "catalog", "configserver", "eureka", "gateway", "hystrixDashboard", "recommendations", "reviews", "turbine"

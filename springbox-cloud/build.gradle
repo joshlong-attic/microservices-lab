@@ -1,22 +1,25 @@
 buildscript {
     ext {
         springBootVersion = '1.2.0.RELEASE'
-        springCloudVersion = '1.0.0.RC1'
+        springCloudVersion = '1.0.0.BUILD-SNAPSHOT'
     }
     repositories {
         mavenCentral()
         maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/milestone" }
-
+        jcenter()
+        maven { url "https://repo.spring.io/plugins-snapshot" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:0.3.1.BUILD-SNAPSHOT"
     }
 }
 
 allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
+    apply plugin: "io.spring.dependency-management"
 
     repositories {
         mavenLocal()
@@ -81,6 +84,26 @@ project(':eureka') {
     dependencies {
         compile("org.springframework.cloud:spring-cloud-starter-eureka-server:${springCloudVersion}")
     }
+
+    configurations.all {
+        exclude group: "org.slf4j", module: "log4j-over-slf4j"
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    }
+
+    springBoot {
+        requiresUnpack = ['com.netflix.eureka:eureka-core', 'com.netflix.eureka:eureka-client']
+    }
+}
+
+project(':turbine') {
+    jar {
+        baseName = 'turbine'
+        version = '0.0.1-SNAPSHOT'
+    }
+
+    dependencies {
+        compile("org.springframework.cloud:spring-cloud-starter-turbine-amqp:${springCloudVersion}")
+    }
 }
 
 project(':gateway') {
@@ -91,6 +114,7 @@ project(':gateway') {
 
     dependencies {
         compile("org.springframework.cloud:spring-cloud-starter-zuul:${springCloudVersion}")
+        compile("org.springframework.cloud:spring-cloud-netflix-hystrix-amqp:${springCloudVersion}")
     }
 }
 
