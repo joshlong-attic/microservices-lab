@@ -3,4 +3,4 @@ applications:
 - name: ms-hystrix-dashboard
   memory: 512M
   instances: 1
-  path: target/microservices-hystrix-dashboard-0.0.1-SNAPSHOT.jar
+  path: build/libs/hystrixDashboard-0.0.1-SNAPSHOT.jar
