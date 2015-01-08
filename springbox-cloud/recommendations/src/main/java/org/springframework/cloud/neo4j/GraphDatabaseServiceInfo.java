@@ -1,46 +1,14 @@
 package org.springframework.cloud.neo4j;
 
-import org.springframework.cloud.service.BaseServiceInfo;
+import org.springframework.cloud.service.UriBasedServiceInfo;
 
-public class GraphDatabaseServiceInfo extends BaseServiceInfo {
+public class GraphDatabaseServiceInfo extends UriBasedServiceInfo {
 
-    private final int httpPort;
-    private final int httpsPort;
-    private final String host;
-    private final String username;
-    private final String password;
-
-    public GraphDatabaseServiceInfo(String id, String host, String username, String password, int httpPort, int httpsPort) {
-        super(id);
-        this.host = host;
-        this.username = username;
-        this.password = password;
-        this.httpPort = httpPort;
-        this.httpsPort = httpsPort;
+    public GraphDatabaseServiceInfo(String id, String uriString) {
+        super(id, uriString);
     }
 
-    @ServiceProperty
-    public String getHost() {
-        return host;
-    }
-
-    @ServiceProperty
-    public String getUsername() {
-        return username;
-    }
-
-    @ServiceProperty
-    public String getPassword() {
-        return password;
-    }
-
-    @ServiceProperty
-    public int getHttpPort() {
-        return httpPort;
-    }
-
-    @ServiceProperty
-    public int getHttpsPort() {
-        return httpsPort;
+    public GraphDatabaseServiceInfo(String id, String scheme, String host, int port, String username, String password, String path) {
+        super(id, scheme, host, port, username, password, path);
     }
 }
