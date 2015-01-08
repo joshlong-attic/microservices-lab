@@ -39,12 +39,10 @@ subprojects {
     dependencies {
         compile("org.springframework.boot:spring-boot-starter-web")
         compile("org.springframework.boot:spring-boot-starter-actuator")
-        compile("org.springframework.cloud:spring-cloud-pcf-connector:1.1.1.BUILD-SNAPSHOT")
-        compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.1.1.BUILD-SNAPSHOT")
-        compile("org.springframework.cloud:spring-cloud-spring-service-connector:1.1.1.BUILD-SNAPSHOT")
+        compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.1.0.RELEASE")
+        compile("org.springframework.cloud:spring-cloud-spring-service-connector:1.1.0.RELEASE")
         compile("org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudVersion}")
         compile("org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}")
-        compile("org.springframework.cloud:spring-cloud-starter-bus-amqp:${springCloudVersion}")
 
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
@@ -57,6 +55,7 @@ project(':catalog') {
     }
 
     dependencies {
+        compile("org.springframework.cloud:spring-cloud-starter-bus-amqp:${springCloudVersion}")
         compile("org.springframework.boot:spring-boot-starter-data-jpa")
         runtime("org.hsqldb:hsqldb")
         runtime("postgresql:postgresql:9.1-901-1.jdbc4")
@@ -71,6 +70,7 @@ project(':configserver') {
     }
 
     dependencies {
+        compile("org.springframework.cloud:spring-cloud-starter-bus-amqp:${springCloudVersion}")
         compile("org.springframework.cloud:spring-cloud-config-server:${springCloudVersion}")
     }
 }
@@ -113,6 +113,7 @@ project(':gateway') {
     }
 
     dependencies {
+        compile("org.springframework.cloud:spring-cloud-starter-bus-amqp:${springCloudVersion}")
         compile("org.springframework.cloud:spring-cloud-starter-zuul:${springCloudVersion}")
         compile("org.springframework.cloud:spring-cloud-netflix-hystrix-amqp:${springCloudVersion}")
     }
@@ -136,6 +137,7 @@ project(':recommendations') {
     }
 
     dependencies {
+        compile("org.springframework.cloud:spring-cloud-starter-bus-amqp:${springCloudVersion}")
         compile("org.springframework.data:spring-data-neo4j-rest:3.3.0.M1")
         compile("org.hibernate:hibernate-validator")
     }
@@ -148,6 +150,7 @@ project(':reviews') {
     }
 
     dependencies {
+        compile("org.springframework.cloud:spring-cloud-starter-bus-amqp:${springCloudVersion}")
         compile("org.springframework.boot:spring-boot-starter-data-mongodb")
     }
 }
