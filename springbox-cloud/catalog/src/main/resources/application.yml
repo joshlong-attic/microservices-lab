@@ -14,8 +14,4 @@ spring:
 spring:
   profiles: cloud
   jpa:
-    database: MYSQL
-eureka:
-  instance:
-    hostname: ms-catalog-service.cf.deepsouthcloud.com
-    nonSecurePort: 80
+    database: POSTGRESQL

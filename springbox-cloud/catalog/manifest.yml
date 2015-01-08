@@ -10,4 +10,6 @@ applications:
   services:
   - catalog-db
   - service-registry
+  - config-service
+  - cloudbus-amqp
 

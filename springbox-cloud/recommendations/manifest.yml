@@ -9,4 +9,6 @@ applications:
   services:
   - recommendations-db
   - service-registry
+  - config-service
+  - cloudbus-amqp
 
