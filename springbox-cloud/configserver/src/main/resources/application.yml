@@ -7,3 +7,12 @@ spring:
       server:
         git:
           uri: https://github.com/mstine/config-repo.git
+
+---
+spring:
+  profiles: lattice
+server:
+  port: 8080
+lattice:
+  receptor:
+    host: receptor.192.168.11.11.xip.io
