@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.2.0.RELEASE'
+        springBootVersion = '1.2.1.BUILD-SNAPSHOT'
         springCloudVersion = '1.0.0.BUILD-SNAPSHOT'
     }
     repositories {
@@ -22,12 +22,26 @@ allprojects {
     apply plugin: "io.spring.dependency-management"
 
     repositories {
-        mavenLocal()
+//        mavenLocal()
         mavenCentral()
         maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/milestone" }
         maven { url "http://m2.neo4j.org/content/repositories/releases" }
     }
+
+//    dependencyManagement {
+//        dependencies {
+//            dependencySet(group:"org.springframework.boot", version: "1.2.1.BUILD-SNAPSHOT") {
+//                entry "spring-boot-starter-actuator"
+//                entry "spring-boot-actuator"
+//                entry "spring-boot-starter"
+//                entry "spring-boot-starter-web"
+//                entry "spring-boot-starter-actuator"
+//                entry "spring-boot"
+//                entry "spring-boot-autoconfigure"
+//            }
+//        }
+//    }
 }
 
 subprojects {
@@ -57,6 +71,7 @@ project(':catalog') {
     dependencies {
         compile("org.springframework.cloud:spring-cloud-starter-bus-amqp:${springCloudVersion}")
         compile("org.springframework.boot:spring-boot-starter-data-jpa")
+        compile(project(':lattice-client'))
         runtime("org.hsqldb:hsqldb")
         runtime("postgresql:postgresql:9.1-901-1.jdbc4")
         runtime("mysql:mysql-connector-java:5.1.25")
@@ -72,6 +87,7 @@ project(':configserver') {
     dependencies {
         compile("org.springframework.cloud:spring-cloud-starter-bus-amqp:${springCloudVersion}")
         compile("org.springframework.cloud:spring-cloud-config-server:${springCloudVersion}")
+        compile(project(':lattice-client'))
     }
 }
 
@@ -116,6 +132,7 @@ project(':gateway') {
         compile("org.springframework.cloud:spring-cloud-starter-bus-amqp:${springCloudVersion}")
         compile("org.springframework.cloud:spring-cloud-starter-zuul:${springCloudVersion}")
         compile("org.springframework.cloud:spring-cloud-netflix-hystrix-amqp:${springCloudVersion}")
+        compile(project(':lattice-client'))
     }
 }
 
