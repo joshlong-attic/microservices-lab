@@ -46,25 +46,32 @@ public class Application {
 @RequestMapping("/{userId}/bookmarks")
 class BookmarkRestController {
 
+    @Autowired
+    private BookmarkRepository bookmarkRepository;
+
     @RequestMapping(method = RequestMethod.GET)
     Collection<Bookmark> getBookmarks(@PathVariable String userId) {
         return this.bookmarkRepository.findByUserId(userId);
     }
 
     @RequestMapping(value = "/{bookmarkId}", method = RequestMethod.GET)
-    Bookmark getBookmark(@PathVariable String userId, @PathVariable Long bookmarkId) {
+    Bookmark getBookmark(@PathVariable String userId,
+                         @PathVariable Long bookmarkId) {
         return this.bookmarkRepository.findByUserIdAndId(userId, bookmarkId);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    Bookmark createBookmark(@PathVariable String userId, @RequestBody Bookmark bookmark) {
-        Bookmark bookmarkInstance = new Bookmark(userId, bookmark.getHref(),
-                bookmark.getDescription(), bookmark.getLabel());
+    Bookmark createBookmark(@PathVariable String userId,
+                            @RequestBody Bookmark bookmark) {
+
+        Bookmark bookmarkInstance = new Bookmark(
+                userId,
+                bookmark.getHref(),
+                bookmark.getDescription(),
+                bookmark.getLabel());
+
         return this.bookmarkRepository.save(bookmarkInstance);
     }
-
-    @Autowired
-    private BookmarkRepository bookmarkRepository;
 
 }
 

@@ -5,12 +5,10 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.feign.FeignConfigurer;
+import org.springframework.cloud.netflix.feign.FeignConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +20,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-@ComponentScan
-@Configuration
-@EnableAutoConfiguration
+@SpringBootApplication
 @EnableEurekaClient
-public class Application extends FeignConfigurer {
+public class Application extends FeignConfiguration {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
