@@ -7,7 +7,7 @@
         <artifactId>spring-cloud-starter-parent</artifactId>
         <version>1.0.0.BUILD-SNAPSHOT</version>
         <relativePath/>
-     </parent>
+    </parent>
 
     <groupId>microservices</groupId>
     <artifactId>root</artifactId>
@@ -18,9 +18,10 @@
     <modules>
 
         <module>bootcamp</module>
+        <module>services</module>
 
         <!--
-                <module>services</module>
+
                 <module>configuration</module>
                 <module>service-registration-and-discovery</module>
         -->
@@ -82,7 +83,6 @@
          -->
     </dependencies>
 
-     
 
     <repositories>
         <repository>
