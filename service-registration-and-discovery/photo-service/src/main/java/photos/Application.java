@@ -2,10 +2,8 @@ package photos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.http.HttpHeaders;
@@ -23,9 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 
-@ComponentScan
-@Configuration
-@EnableAutoConfiguration
+@SpringBootApplication
 @EnableEurekaClient
 public class Application {
 
@@ -59,7 +55,7 @@ class PhotoRestController {
     ResponseEntity<Resource> get(String userId) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.IMAGE_JPEG);
-        return new ResponseEntity<Resource>(
+        return new ResponseEntity<>(
                 this.gridFsTemplate.getResource(userId), httpHeaders, HttpStatus.OK);
     }
 }
