@@ -5,10 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Controller;
@@ -21,9 +19,7 @@ import javax.persistence.Id;
 import java.util.Arrays;
 import java.util.Collection;
 
-@Configuration
-@ComponentScan
-@EnableAutoConfiguration
+@SpringBootApplication
 public class Application {
 
     @Bean
@@ -43,6 +39,16 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 }
+
+/*@Configuration
+@Profile("cloud")
+class CloudConfiguration extends AbstractCloudConfig {
+
+    @Bean
+    DataSource dataSource() {
+        return connectionFactory().dataSource();
+    }
+}*/
 
 @Controller
 class ReservationMvcController {
