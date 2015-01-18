@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collection;
 import java.util.List;
 
 @SpringBootApplication
@@ -76,12 +77,17 @@ class Client {
                         new ParameterizedTypeReference<List<Bookmark>>() {
                         },
                         (Object) "mstine");
-        exchange.getBody().forEach(System.out::println);
 
-        // use the smart Eureka-aware Feign support
-        bookmarkClient.getBookmarks("jlong").forEach(System.out::println);
+        enumerateBookmarks("mstine", exchange.getBody());
+
+        enumerateBookmarks("jlong", bookmarkClient.getBookmarks("jlong"));
     }
 
+    protected void enumerateBookmarks(String user, Collection<Bookmark> bookmark) {
+        System.out.println ( "--------------------------------------") ;
+        System.out.println("found " + bookmark.size() + " bookmarks for " + user + ".");
+        bookmark.forEach(System.out::println);
+    }
 
 }
 
