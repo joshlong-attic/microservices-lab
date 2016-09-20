@@ -1,0 +1,11 @@
+---
+applications:
+- name: ms-config-service
+  memory: 512M
+  timeout: 90
+  instances: 1
+  path: build/libs/configserver-0.0.1-SNAPSHOT.jar
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+  services:
+  - cloudbus-amqp

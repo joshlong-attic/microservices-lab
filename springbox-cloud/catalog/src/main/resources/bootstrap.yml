@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: catalog-service
+  cloud:
+    config:
+      uri: ${vcap.services.config-service.credentials.uri:http://localhost:8888}
+
+---
+spring:
+  profile: lattice
+  cloud:
+    config:
+      uri: http://configserver.192.168.11.11.xip.io
